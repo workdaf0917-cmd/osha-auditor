@@ -1,6 +1,8 @@
 // 職業安全衛生法規資料庫
 // 資料來源：勞動部全國法規資料庫
 
+import { ENFORCEMENT_RULES_ALL } from './regulations_enforcement';
+
 export interface RegulationArticle {
   article: string;
   title?: string;
@@ -353,7 +355,8 @@ export const ALL_REGULATIONS = [
   ...CONSTRUCTION_SAFETY_REGULATIONS,
   ...SAFETY_FACILITY_REGULATIONS,
   ...SAFETY_MANAGEMENT_REGULATIONS,
-  ...OCCUPATIONAL_SAFETY_LAW
+  ...OCCUPATIONAL_SAFETY_LAW,
+  ...ENFORCEMENT_RULES_ALL
 ];
 
 // 根據缺失類型取得相關法規

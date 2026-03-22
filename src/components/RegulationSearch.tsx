@@ -18,6 +18,7 @@ import {
   ALL_EXTENDED_REGULATIONS,
   searchRegulationOnline 
 } from '@/data/regulations_extended';
+import { ENFORCEMENT_RULES_ALL } from '@/data/regulations_enforcement';
 
 interface RegulationCategoryProps {
   title: string;
@@ -118,8 +119,18 @@ export function RegulationSearch() {
           a.category.includes(searchQuery)
         )
       );
+
+      // 施行細則搜尋
+      const enforcementResults = ENFORCEMENT_RULES_ALL.flatMap(cat =>
+        cat.articles.filter(a =>
+          a.article.includes(searchQuery) ||
+          (a.title && a.title.includes(searchQuery)) ||
+          a.content.includes(searchQuery) ||
+          a.category.includes(searchQuery)
+        )
+      );
       
-      setSearchResults([...localResults, ...extendedResults]);
+      setSearchResults([...localResults, ...extendedResults, ...enforcementResults]);
       
       // 網路搜尋補充
       setIsSearchingOnline(true);
@@ -162,6 +173,11 @@ export function RegulationSearch() {
       title: '職業安全衛生法', 
       description: '職業安全衛生之基本法律',
       regulations: OCCUPATIONAL_SAFETY_LAW 
+    },
+    { 
+      title: '職業安全衛生法施行細則', 
+      description: '職業安全衛生法之施行細則，含定義、設施、管理、監督檢查等規定',
+      regulations: ENFORCEMENT_RULES_ALL 
     },
     { 
       title: '缺氧症預防規則 / 局限空間 / 作業主管', 
